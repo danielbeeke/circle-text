@@ -3,7 +3,7 @@ const circleTexts = ([...document.querySelectorAll('.circle-text')] as Array<HTM
 for (const circleText of circleTexts) {
   circleText.innerHTML = circleText.innerText
   .split('')
-  .map(letter => `<span>${letter}</span>`)
+  .map((letter: string, index: number) => `<span style="--index: ${index}">${letter}</span>`)
   .join('')
 }
 

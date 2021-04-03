@@ -30,12 +30,7 @@ body {
     top: 0;
     transform-origin: 0% 50%;  
     color: var(--text);
-  }
-
-  @for $i from 1 through 70 {
-    span:nth-child(#{$i}) {
-      transform: rotate(calc((#{$i} - 1) * var(--step)));
-    }
+    transform: rotate(calc((var(--index) - 1) * var(--step)));
   }
 }
 
