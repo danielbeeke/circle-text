@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Arapey:ital@1&family=Pathway+Gothic+One&family=Russo+One&display=swap');
+
+body {
+  background-color: rgb(43, 27, 27);
+  overflow: hidden;
+  --text: rgb(187, 174, 174);
+  --enter-width: 60px;
+  --bezier: cubic-bezier(.49,-0.79,.24,1.63);
+  --exit-bezier: cubic-bezier(.41,.04,.24,1.63);
+}
+
+.circle-text {
+  will-change: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: var(--width);
+  width: var(--width);
+  transform: translate(-50%, -50%) rotate(0deg);
+  transition: transform 1s var(--bezier);
+  border-radius: 50%;
+  
+  span {
+    font-size: var(--font-size);
+    height: var(--width);
+    position: absolute;
+    text-align: center;
+    width: var(--letter-width);
+    left: 50%;
+    top: 0;
+    transform-origin: 0% 50%;  
+    color: var(--text);
+  }
+
+  @for $i from 1 through 70 {
+    span:nth-child(#{$i}) {
+      transform: rotate(calc((#{$i} - 1) * var(--step)));
+    }
+  }
+}
+
+.style-1 {
+  --width: 649px;
+  --letter-width: 44px;
+  --font-size: 45px;
+  --step: 9deg;
+  transform: translate(-50%, -50%) rotate(var(--circle-1-start));
+  font-family: 'Russo One', sans-serif;
+}
+
+.style-2 {
+  --width: 449px;
+  --letter-width: 20px;
+  --font-size: 40px;
+  --step: 10deg;
+  transform: translate(-50%, -50%) rotate(var(--circle-2-start));
+  text-transform: uppercase;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+
+.style-3 {
+  --width: 240px;
+  --letter-width: 20px;
+  --font-size: 26px;
+  --step: 10deg;
+  transform: translate(-50%, -50%) rotate(var(--circle-3-start));
+  text-transform: uppercase;
+  font-family: 'Arapey', serif;
+}
+
+.enter {
+  display: block;
+  border-radius: 50%;
+  width: var(--enter-width);
+  height: var(--enter-width);
+  border: none;
+  background-color: white;
+  text-align: center;
+  line-height: 0;
+  font-size: 12px;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transition: transform .4s var(--bezier), opacity 2s cubic-bezier(.41,.04,.24,1.63);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: lowercase;
+  cursor: pointer;
+  transform-origin: right bottom;
+
+  &:hover {
+    transform: scale(2);
+  }
+}
+
+.circle-wrapper {
+  transform: scale(5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 4s var(--exit-bezier), opacity 4s var(--exit-bezier);
+  width: 900px;
+  height: 900px;
+  opacity: 1;
+}
+
+body.exit {
+  .circle-wrapper {
+    transform: translate(-50%, -50%) scale(5);
+    opacity: 0;
+  } 
+
+  .enter {
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(2);
+  }
+}
